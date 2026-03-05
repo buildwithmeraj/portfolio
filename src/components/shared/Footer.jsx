@@ -17,12 +17,12 @@ const links = [
 const Footer = () => {
   return (
     <footer className="mt-auto px-4 pb-24 pt-3 md:px-6 md:pt-4 lg:pb-6">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-start gap-4 rounded-4xl border border-base-300/80 bg-base-100/70 p-5 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-4 rounded-4xl border border-base-300/80 bg-base-100/70 p-5 backdrop-blur text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <p className="text-sm opacity-75">
           Copyright © {new Date().getFullYear()} Merajul Islam. All rights
           reserved.
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           {links.map((item) => {
             const Icon = item.icon;
             return (

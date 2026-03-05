@@ -11,7 +11,7 @@ const HomeAboutSkeleton = () => {
             <div className="skeleton h-10 w-32 rounded-xl" />
             <div className="skeleton h-10 w-28 rounded-xl" />
           </div>
-          <div className="grid gap-3 sm:grid-cols-3 pt-1">
+          <div className="grid gap-3 grid-cols-3 pt-1">
             <div className="skeleton h-18 rounded-2xl" />
             <div className="skeleton h-18 rounded-2xl" />
             <div className="skeleton h-18 rounded-2xl" />

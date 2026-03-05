@@ -70,7 +70,7 @@ const HomeAboutSection = ({ projectsCount, skillsCount, postsCount }) => {
             </Link>
           </div>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          <div className="mt-7 grid grid-cols-3 gap-3">
             <div className="rounded-2xl border border-base-300/80 bg-base-100/65 px-4 py-3 text-center">
               <p className="text-2xl font-bold leading-none">
                 {projectsCount}+
