@@ -73,7 +73,9 @@ const AdminLayout = async ({ children }) => {
                 </div>
               </div>
             ) : (
-              <section className="min-h-[70vh] bg-base-200/50 p-4">{children}</section>
+              <section className="min-h-[70vh] bg-base-200/50 p-4">
+                {children}
+              </section>
             )}
           </main>
           <Footer />

@@ -21,15 +21,16 @@ export async function createAdminToken(payload) {
 }
 
 export async function verifyAdminToken(token) {
+  // Make sure this returns null/false if token is missing or invalid
   if (!token) {
-    return null;
+    return null; // ← Ensure this returns null, not undefined
   }
 
   try {
-    const { payload } = await jwtVerify(token, getJwtSecret());
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
     return payload;
-  } catch {
-    return null;
+  } catch (error) {
+    return null; // ← Return null on verification failure
   }
 }
 
