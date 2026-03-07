@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
   FiBold,
+  FiCode,
   FiGrid,
   FiImage,
   FiItalic,
@@ -73,6 +74,22 @@ const BlogEditor = ({ value, onChange }) => {
 
     const tableHtml = `<table style="border-collapse:collapse;width:100%;margin:12px 0;"><tbody>${tableRows}</tbody></table><p></p>`;
     exec("insertHTML", tableHtml);
+  }
+
+  function escapeHtml(value) {
+    return value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function handleInsertCodeBlock() {
+    const selectedText = window.getSelection()?.toString() || "";
+    const code = selectedText || "const hello = 'world';";
+    const codeHtml = `<pre><code>${escapeHtml(code)}</code></pre><p></p>`;
+    exec("insertHTML", codeHtml);
   }
 
   async function handleImageUpload(event) {
@@ -199,6 +216,15 @@ const BlogEditor = ({ value, onChange }) => {
         >
           <FiGrid className="size-4" />
           Table
+        </button>
+        <button
+          type="button"
+          className="btn btn-xs btn-soft"
+          onMouseDown={preserveSelection}
+          onClick={handleInsertCodeBlock}
+        >
+          <FiCode className="size-4" />
+          Code
         </button>
         <button
           type="button"

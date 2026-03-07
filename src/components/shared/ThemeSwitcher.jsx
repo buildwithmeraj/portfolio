@@ -20,7 +20,7 @@ const ThemeSwitcher = () => {
 
     window.setTimeout(() => {
       root.classList.remove("theme-switching");
-    }, 380);
+    }, 180);
   };
 
   return (
@@ -33,12 +33,12 @@ const ThemeSwitcher = () => {
         aria-label="Toggle theme"
       />
 
-      <div className="flex h-full w-full items-center justify-between rounded-full border border-base-300 bg-base-200 px-2 text-base-content/60 transition-colors duration-300 peer-checked:bg-base-300">
+      <div className="flex h-full w-full items-center justify-between rounded-full border border-base-300 bg-base-200 px-2 text-base-content/60 transition-colors duration-200 ease-out peer-checked:bg-base-300">
         <FiSun className="size-3.5" />
         <FiMoon className="size-3.5" />
       </div>
 
-      <div className="absolute left-1 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-content shadow-md transition-transform duration-300 peer-checked:translate-x-8">
+      <div className="absolute left-1 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-content shadow-md transition-transform duration-200 ease-out peer-checked:translate-x-8">
         {isDark ? <FiMoon className="size-3.5" /> : <FiSun className="size-3.5" />}
       </div>
     </label>

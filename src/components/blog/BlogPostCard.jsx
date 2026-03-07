@@ -16,7 +16,7 @@ function formatDate(value) {
 
 const BlogPostCard = ({ post }) => {
   return (
-    <article className="reveal group block h-full rounded-2xl border border-base-300/90 bg-base-100/80 p-4 shadow-sm backdrop-blur">
+    <article className="reveal group flex h-full flex-col rounded-2xl border border-base-300/90 bg-base-100/80 p-4 shadow-sm backdrop-blur">
       <Link
         href={`/blog/${post.slug}`}
         className="block overflow-hidden rounded-2xl border border-base-300"
@@ -37,22 +37,24 @@ const BlogPostCard = ({ post }) => {
       </Link>
 
       <Link href={`/blog/${post.slug}`} className="block">
-        <h2 className="mb-2 mt-4 text-2xl font-semibold tracking-tight text-base-content">
+        <h2 className="mb-2 mt-4 line-clamp-2 text-xl font-semibold tracking-tight text-base-content">
           {post.title}
         </h2>
       </Link>
 
-      {post.excerpt ? (
-        <p className="mb-6 line-clamp-3 text-sm text-base-content/75">
-          {post.excerpt}
-        </p>
-      ) : (
-        <p className="mb-6 text-sm text-base-content/60">
-          {formatDate(post.publishedAt || post.createdAt)}
-        </p>
-      )}
+      <div className="mb-4 flex-1">
+        {post.excerpt ? (
+          <p className="line-clamp-3 text-sm text-base-content/75">
+            {post.excerpt}
+          </p>
+        ) : (
+          <p className="text-sm text-base-content/60">
+            {formatDate(post.publishedAt || post.createdAt)}
+          </p>
+        )}
+      </div>
 
-      <div className="flex items-center justify-between">
+      <div className="mt-auto flex items-center justify-between border-t border-base-300 pt-4">
         <Link href={`/blog/${post.slug}`} className="btn btn-primary btn-soft">
           Read more
           <FiArrowRight className="size-4" />

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "highlight.js/styles/github-dark.css";
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
@@ -114,6 +115,37 @@ body {
 .blog-editor-content td {
   border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
   padding: 0.5rem;
+}
+
+.blog-editor-content pre,
+.blog-content pre {
+  background: color-mix(in oklab, var(--color-base-200) 86%, black 14%);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 18%, transparent);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1rem;
+  margin: 0.8rem 0;
+  overflow-x: auto;
+}
+
+.blog-editor-content code,
+.blog-content code {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace;
+  font-size: 0.9em;
+}
+
+.blog-content :not(pre) > code {
+  background: color-mix(in oklab, var(--color-base-200) 70%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-base-content) 16%, transparent);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.35rem;
 }
 
 .blog-editor-content h1,
@@ -291,8 +323,8 @@ label:not(.btn) {
 
 html.theme-switching,
 html.theme-switching * {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 380ms;
+  transition-property: color, fill, stroke, box-shadow;
+  transition-duration: 100ms;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

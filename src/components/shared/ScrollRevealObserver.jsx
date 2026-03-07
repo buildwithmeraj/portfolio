@@ -25,11 +25,13 @@ const ScrollRevealObserver = () => {
     const observed = new Set();
     let seq = 0;
 
-    const markIfInViewport = (node) => {
+    const isInViewport = (node) => {
       const rect = node.getBoundingClientRect();
-      const topGate = window.innerHeight * 0.9;
-      const bottomGate = window.innerHeight * 0.08;
-      if (rect.top < topGate && rect.bottom > bottomGate) {
+      return rect.top <= window.innerHeight - 24 && rect.bottom >= 24;
+    };
+
+    const markIfInViewport = (node) => {
+      if (isInViewport(node)) {
         node.classList.add("is-visible");
       }
     };
@@ -39,14 +41,12 @@ const ScrollRevealObserver = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
-          } else {
-            entry.target.classList.remove("is-visible");
           }
         });
       },
       {
-        threshold: 0.28,
-        rootMargin: "-6% 0px -18% 0px",
+        threshold: 0.06,
+        rootMargin: "0px 0px -8% 0px",
       }
     );
 
@@ -55,13 +55,17 @@ const ScrollRevealObserver = () => {
         return;
       }
 
-      node.classList.remove("is-visible");
+      if (node.classList.contains("is-visible")) {
+        observed.add(node);
+        return;
+      }
+
       node.style.transitionDelay = `${(seq % 8) * 60}ms`;
       seq += 1;
 
+      markIfInViewport(node);
       observer.observe(node);
       observed.add(node);
-      markIfInViewport(node);
     };
 
     const scanAndRegister = () => {
@@ -86,7 +90,7 @@ const ScrollRevealObserver = () => {
       revealNodes()
         .filter((node) => !node.classList.contains("is-visible"))
         .forEach((node) => node.classList.add("is-visible"));
-    }, 1200);
+    }, 800);
 
     return () => {
       observer.disconnect();

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/public-content";
 import { IoMdCalendar } from "react-icons/io";
 import { FiBookOpen } from "react-icons/fi";
+import BlogPostContent from "@/components/blog/BlogPostContent";
 
 function formatDate(value) {
   if (!value) {
@@ -56,13 +57,12 @@ const BlogPostPage = async ({ params }) => {
             height={680}
             className="mb-4 h-auto w-full rounded-2xl border border-base-300 object-contain lg:float-left lg:!mb-4 lg:!mr-8 lg:w-1/2 xl:!mr-10 xl:w-1/3"
           />
-          <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+          <BlogPostContent html={post.contentHtml} />
         </div>
       ) : (
-        <div
-          className="surface-card reveal blog-content p-6 md:p-8"
-          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-        />
+        <div className="surface-card reveal blog-content p-6 md:p-8">
+          <BlogPostContent html={post.contentHtml} />
+        </div>
       )}
 
       {!!post.relatedPosts?.length ? (
