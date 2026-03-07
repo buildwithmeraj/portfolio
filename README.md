@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# meraj.pro Portfolio
 
-## Getting Started
+Full-stack portfolio application built with Next.js 16, MongoDB, and DaisyUI.
 
-First, run the development server:
+#### Live Link: [https://meraj.pro](https://meraj.pro)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+#### Also (Alias): [https://meraj.pro.bd](https://meraj.pro.bd)
+
+## Features
+
+- Public pages:
+  - Home
+  - Projects (`/projects`)
+  - Skills (`/skills`)
+  - Blog (`/blog`, `/blog/[slug]`, `/blog/category/[slug]`)
+  - Resume (`/resume`)
+  - Contact (`/contact`)
+- Admin panel (username/password auth):
+  - Skills CRUD
+  - Projects CRUD (with skill selection)
+  - Blog categories CRUD
+  - Blog posts CRUD (WYSIWYG, ImgBB upload, code block + syntax highlighting)
+  - Resume links CRUD (Google Drive view/download handling)
+  - Email accounts CRUD
+- UI/UX:
+  - Theme switching (light/dark)
+  - Mobile sidebar nav + mobile dock
+  - Scroll reveal animations
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- MongoDB (`mongodb`)
+- Auth via JWT cookie (`jose`, `bcryptjs`)
+- Styling: Tailwind CSS + DaisyUI
+- Icons: `react-icons`
+- Toasts: `react-hot-toast`
+- Email: `nodemailer`
+- Code highlighting: `highlight.js`
+
+## Environment Variables
+
+Create `.env` from `.env.example`.
+
+```env
+# App
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# MongoDB
+MONGODB_URI=...
+MONGODB_DB_NAME=portfolio
+
+# Auth
+AUTH_SECRET=...
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD_HASH=...
+
+# ImgBB
+IMGBB_API_KEY=...
+
+# SMTP
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=...
+SMTP_PASS=...
+SMTP_FROM="Meraj Portfolio <your-email@gmail.com>"
+CONTACT_RECEIVER_EMAIL=merajbd7@gmail.com
+
+# Optional (reserved)
+ENCRYPTION_KEY=...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Generate admin password hash:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+node -e "const b=require('bcryptjs'); b.hash('your-password',12).then(console.log)"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Development
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+App runs at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Useful Routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Public:
+  - `/`
+  - `/projects`
+  - `/skills`
+  - `/blog`
+  - `/resume`
+  - `/contact`
+- Admin:
+  - `/admin/login`
+  - `/admin`
+  - `/admin/skills`
+  - `/admin/projects`
+  - `/admin/blog`
+  - `/admin/resumes`
+  - `/admin/emails`
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Admin routes are protected by `proxy.js`.
+- Blog post slugs and category slugs are auto-generated from titles.
+- Resume page supports Google Drive links for both view and direct download.

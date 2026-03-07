@@ -57,7 +57,7 @@ const BlogPostCard = ({ post }) => {
       <div className="mt-auto flex items-center justify-between border-t border-base-300 pt-4">
         <Link href={`/blog/${post.slug}`} className="btn btn-primary btn-soft">
           Read more
-          <FiArrowRight className="size-4" />
+          <FiArrowRight className="size-4 mt-0.5" />
         </Link>
         <p className="text-sm text-base-content/60">
           {formatDate(post.publishedAt || post.createdAt)}

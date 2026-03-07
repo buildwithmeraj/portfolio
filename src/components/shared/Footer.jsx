@@ -35,7 +35,7 @@ const Footer = () => {
               >
                 <Icon className="size-4" />
                 {item.label}
-                <FiArrowUpRight className="size-4" />
+                <FiArrowUpRight className="size-5.5" />
               </Link>
             );
           })}

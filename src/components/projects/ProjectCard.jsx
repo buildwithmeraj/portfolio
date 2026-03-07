@@ -48,7 +48,7 @@ const ProjectCard = ({ project, maxSkills }) => {
             target="_blank"
             rel="noreferrer"
           >
-            <FiArrowUpRight className="size-4" />
+            <FiArrowUpRight className="size-5" />
             Live
           </a>
         ) : null}
