@@ -30,6 +30,12 @@ const nextConfig = {
         pathname: "/**",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "meraj.pro",
+        port: "",
+        pathname: "/images/**",
+      },
     ],
   },
 };
