@@ -97,13 +97,10 @@ const HomeAboutSection = ({ projectsCount, skillsCount, postsCount }) => {
         <aside className="space-y-5 xl:col-span-4">
           <article className="">
             <div className="rounded-3xl">
-              <Image
+              <img
                 src="/images/profile.png"
                 alt="Meraj profile"
                 className="mx-auto h-60 w-60 rounded-full object-cover"
-                width={600}
-                height={600}
-                priority
               />
             </div>
           </article>

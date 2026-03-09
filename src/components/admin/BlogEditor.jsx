@@ -17,7 +17,11 @@ import { FaHeading } from "react-icons/fa";
 const BlogEditor = ({ value, onChange }) => {
   const editorRef = useRef(null);
   const fileInputRef = useRef(null);
+  const savedRangeRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [linkText, setLinkText] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
 
   useEffect(() => {
     if (!editorRef.current) {
@@ -42,12 +46,95 @@ const BlogEditor = ({ value, onChange }) => {
     event.preventDefault();
   }
 
-  function handleAddLink() {
-    const url = window.prompt("Enter URL");
-    if (!url) {
+  function openLinkModal() {
+    const selection = window.getSelection();
+    if (selection?.rangeCount) {
+      const range = selection.getRangeAt(0);
+      const editor = editorRef.current;
+      if (editor && editor.contains(range.commonAncestorContainer)) {
+        savedRangeRef.current = range.cloneRange();
+      }
+    }
+
+    const selectedText = selection?.toString()?.trim() || "";
+    setLinkText(selectedText);
+    setLinkUrl("");
+    setIsLinkModalOpen(true);
+  }
+
+  function closeLinkModal() {
+    setIsLinkModalOpen(false);
+    setLinkText("");
+    setLinkUrl("");
+  }
+
+  function normalizeUrl(url) {
+    const trimmed = url.trim();
+    if (!trimmed) {
+      return "";
+    }
+    if (/^https?:\/\//i.test(trimmed) || /^mailto:/i.test(trimmed)) {
+      return trimmed;
+    }
+    return `https://${trimmed}`;
+  }
+
+  function handleLinkSubmit(event) {
+    event.preventDefault();
+
+    const text = linkText.trim();
+    const rawUrl = linkUrl.trim();
+    if (!text || !rawUrl) {
+      toast.error("Both link text and URL are required.");
       return;
     }
-    exec("createLink", url);
+
+    const href = normalizeUrl(rawUrl);
+    if (!href) {
+      toast.error("Please provide a valid URL.");
+      return;
+    }
+
+    const editor = editorRef.current;
+    if (!editor) {
+      toast.error("Editor is not ready.");
+      return;
+    }
+
+    editor.focus();
+
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+
+    let range = savedRangeRef.current;
+    if (!range || !editor.contains(range.commonAncestorContainer)) {
+      range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+
+    selection?.addRange(range);
+
+    const anchor = document.createElement("a");
+    anchor.href = href;
+    anchor.target = "_blank";
+    anchor.rel = "noreferrer";
+    anchor.textContent = text;
+
+    range.deleteContents();
+    range.insertNode(anchor);
+
+    const spaceNode = document.createTextNode(" ");
+    anchor.parentNode?.insertBefore(spaceNode, anchor.nextSibling);
+
+    const caretRange = document.createRange();
+    caretRange.setStartAfter(spaceNode);
+    caretRange.collapse(true);
+    selection?.removeAllRanges();
+    selection?.addRange(caretRange);
+
+    onChange(editor.innerHTML);
+    closeLinkModal();
   }
 
   function handleInsertTable() {
@@ -150,7 +237,7 @@ const BlogEditor = ({ value, onChange }) => {
           type="button"
           className="btn btn-xs btn-soft"
           onMouseDown={preserveSelection}
-          onClick={handleAddLink}
+          onClick={openLinkModal}
         >
           <FiLink className="size-4" />
           Link
@@ -255,6 +342,49 @@ const BlogEditor = ({ value, onChange }) => {
       <p className="text-xs opacity-70">
         Tip: paste text, then use toolbar for formatting and image upload.
       </p>
+
+      {isLinkModalOpen ? (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
+          <form
+            onSubmit={handleLinkSubmit}
+            className="w-full max-w-md space-y-4 rounded-2xl border border-base-300 bg-base-100 p-5 shadow-xl"
+          >
+            <h3 className="text-lg font-semibold">Insert Link</h3>
+
+            <label className="form-control w-full">
+              <span className="label-text mb-1">Text</span>
+              <input
+                className="input input-bordered w-full"
+                value={linkText}
+                onChange={(event) => setLinkText(event.target.value)}
+                placeholder="Clickable text"
+                required
+                autoFocus
+              />
+            </label>
+
+            <label className="form-control w-full">
+              <span className="label-text mb-1">URL</span>
+              <input
+                className="input input-bordered w-full"
+                value={linkUrl}
+                onChange={(event) => setLinkUrl(event.target.value)}
+                placeholder="https://example.com"
+                required
+              />
+            </label>
+
+            <div className="flex justify-end gap-2 pt-1">
+              <button type="button" className="btn btn-ghost" onClick={closeLinkModal}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Add Link
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : null}
     </div>
   );
 };

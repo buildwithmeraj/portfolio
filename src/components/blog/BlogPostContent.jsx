@@ -8,28 +8,43 @@ const BlogPostContent = ({ html }) => {
   useEffect(() => {
     let cancelled = false;
 
-    async function highlightCodeBlocks() {
+    async function enhanceContent() {
       const root = containerRef.current;
       if (!root) {
         return;
       }
 
       const codeBlocks = root.querySelectorAll("pre code");
-      if (!codeBlocks.length) {
-        return;
+      if (codeBlocks.length) {
+        const hljs = (await import("highlight.js")).default;
+        if (cancelled) {
+          return;
+        }
+
+        codeBlocks.forEach((block) => {
+          hljs.highlightElement(block);
+        });
       }
 
-      const hljs = (await import("highlight.js")).default;
-      if (cancelled) {
-        return;
-      }
+      const links = root.querySelectorAll("a[href]");
+      links.forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        if (!href) {
+          return;
+        }
 
-      codeBlocks.forEach((block) => {
-        hljs.highlightElement(block);
+        const isExternal =
+          /^https?:\/\//i.test(href) || href.startsWith("//") || href.startsWith("www.");
+
+        if (isExternal) {
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noreferrer noopener");
+          link.classList.add("external-link");
+        }
       });
     }
 
-    highlightCodeBlocks();
+    enhanceContent();
     return () => {
       cancelled = true;
     };
