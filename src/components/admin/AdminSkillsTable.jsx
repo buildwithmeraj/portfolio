@@ -79,7 +79,6 @@ const AdminSkillsTable = () => {
           <tr>
             <th>Skill</th>
             <th>Category</th>
-            <th>Level</th>
             <th>Featured</th>
             <th>Order</th>
             <th className="text-right">Actions</th>
@@ -99,7 +98,6 @@ const AdminSkillsTable = () => {
                 </div>
               </td>
               <td>{skill.category}</td>
-              <td>{skill.level}%</td>
               <td>{skill.isFeatured ? "Yes" : "No"}</td>
               <td>{skill.order}</td>
               <td>

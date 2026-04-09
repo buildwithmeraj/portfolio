@@ -11,11 +11,10 @@ export async function GET() {
         name: 1,
         iconUrl: 1,
         category: 1,
-        level: 1,
         order: 1,
         isFeatured: 1,
       })
-      .sort({ order: 1, level: -1, createdAt: -1 })
+      .sort({ order: 1, createdAt: -1 })
       .toArray();
 
     const payload = skills.map((skill) => ({

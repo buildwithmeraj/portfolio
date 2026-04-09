@@ -13,12 +13,6 @@ const SkillCard = ({ skill }) => {
           <p className="text-xs opacity-70">{skill.category}</p>
         </div>
       </div>
-      <progress
-        className="progress progress-primary h-2 w-full"
-        value={skill.level}
-        max="100"
-      />
-      <p className="mt-2 text-sm opacity-80">{skill.level}% proficiency</p>
     </article>
   );
 };

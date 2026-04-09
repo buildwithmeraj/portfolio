@@ -9,7 +9,6 @@ const defaults = {
   name: "",
   iconUrl: "",
   category: "Frontend",
-  level: 70,
   order: 0,
   isFeatured: true,
 };
@@ -46,7 +45,6 @@ const SkillForm = ({ mode, skillId, initialData }) => {
           name: form.name,
           iconUrl: form.iconUrl,
           category: form.category,
-          level: Number(form.level),
           order: Number(form.order),
           isFeatured: form.isFeatured,
         }),
@@ -109,7 +107,7 @@ const SkillForm = ({ mode, skillId, initialData }) => {
         </div>
       ) : null}
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         <label className="form-control w-full">
           <span className="label-text mb-1.5 font-semibold text-base-content">
             Category
@@ -119,21 +117,6 @@ const SkillForm = ({ mode, skillId, initialData }) => {
             value={form.category}
             onChange={(event) => updateField("category", event.target.value)}
             placeholder="Frontend / Backend / Tools"
-            required
-          />
-        </label>
-
-        <label className="form-control w-full">
-          <span className="label-text mb-1.5 font-semibold text-base-content">
-            Level (0-100)
-          </span>
-          <input
-            type="number"
-            min="0"
-            max="100"
-            className="input input-bordered w-full text-sm focus:outline-none focus:border-primary"
-            value={form.level}
-            onChange={(event) => updateField("level", event.target.value)}
             required
           />
         </label>

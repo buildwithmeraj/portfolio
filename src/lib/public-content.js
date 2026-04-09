@@ -14,8 +14,8 @@ export async function getSkills() {
     const skills = await db
       .collection("skills")
       .find({})
-      .project({ name: 1, iconUrl: 1, level: 1, category: 1, order: 1 })
-      .sort({ order: 1, level: -1, createdAt: -1 })
+      .project({ name: 1, iconUrl: 1, category: 1, order: 1 })
+      .sort({ order: 1, createdAt: -1 })
       .toArray();
 
     return mapWithStringId(skills);

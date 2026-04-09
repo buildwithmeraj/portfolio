@@ -35,7 +35,7 @@ const EditSkillPage = async ({ params }) => {
       <div>
         <h1 className="text-2xl font-semibold">Edit Skill</h1>
         <p className="text-sm opacity-80">
-          Update name, icon, category, level, and order.
+          Update name, icon, category, and order.
         </p>
       </div>
 

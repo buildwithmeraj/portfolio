@@ -7,7 +7,6 @@ function normalizeSkillInput(body) {
   const name = body?.name?.trim();
   const iconUrl = body?.iconUrl?.trim();
   const category = body?.category?.trim() || "General";
-  const level = Number(body?.level);
   const order = Number(body?.order);
   const isFeatured = Boolean(body?.isFeatured);
 
@@ -19,10 +18,6 @@ function normalizeSkillInput(body) {
     return { error: "Skill icon URL is required." };
   }
 
-  if (Number.isNaN(level) || level < 0 || level > 100) {
-    return { error: "Skill level must be between 0 and 100." };
-  }
-
   if (Number.isNaN(order)) {
     return { error: "Display order must be a valid number." };
   }
@@ -32,7 +27,6 @@ function normalizeSkillInput(body) {
       name,
       iconUrl,
       category,
-      level,
       order,
       isFeatured,
     },

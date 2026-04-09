@@ -6,7 +6,7 @@ const CreateSkillPage = () => {
       <div>
         <h1 className="text-2xl font-semibold">Create Skill</h1>
         <p className="text-sm opacity-80">
-          Add a new skill with icon URL, level, category, and ordering.
+          Add a new skill with icon URL, category, and ordering.
         </p>
       </div>
 
