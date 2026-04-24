@@ -13,7 +13,7 @@ const AdminLoginPage = async () => {
   }
 
   return (
-    <section className="flex min-h-[85vh] items-center justify-center">
+    <section className="flex min-h-[78vh] items-center justify-center">
       <AdminLoginForm />
     </section>
   );

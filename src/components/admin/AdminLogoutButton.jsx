@@ -24,13 +24,12 @@ const AdminLogoutButton = () => {
   return (
     <button
       onClick={handleLogout}
-      className="is-drawer-close:tooltip is-drawer-close:tooltip-right ml-0.5 text-error hover:text-error-focus transition"
-      data-tip="Logout"
+      className="btn btn-sm border-error/30 bg-error/10 text-error hover:bg-error/15"
+      aria-label="Logout"
+      title="Logout"
     >
-      <span className="is-drawer-close:hidden">
-        <FaSignOutAlt className="size-4 inline mr-1.5" />
-        Logout
-      </span>
+      <FaSignOutAlt className="size-4 shrink-0" />
+      <span className="hidden sm:inline">Logout</span>
     </button>
   );
 };

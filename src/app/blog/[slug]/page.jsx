@@ -5,6 +5,7 @@ import { getPostBySlug } from "@/lib/public-content";
 import { IoMdCalendar } from "react-icons/io";
 import { FiBookOpen } from "react-icons/fi";
 import BlogPostContent from "@/components/blog/BlogPostContent";
+import { sanitizeBlogHtml } from "@/lib/sanitize-blog-html";
 
 function formatDate(value) {
   if (!value) {
@@ -27,6 +28,8 @@ const BlogPostPage = async ({ params }) => {
   if (!post) {
     notFound();
   }
+
+  const safeContentHtml = sanitizeBlogHtml(post.contentHtml);
 
   return (
     <article className="mx-auto space-y-6 py-2 md:space-y-8">
@@ -57,11 +60,11 @@ const BlogPostPage = async ({ params }) => {
             height={680}
             className="mb-4 h-auto w-full rounded-2xl border border-base-300 object-contain lg:float-left lg:!mb-4 lg:!mr-8 lg:w-1/2 xl:!mr-10 xl:w-1/3"
           />
-          <BlogPostContent html={post.contentHtml} />
+          <BlogPostContent html={safeContentHtml} />
         </div>
       ) : (
         <div className="surface-card reveal blog-content p-6 md:p-8">
-          <BlogPostContent html={post.contentHtml} />
+          <BlogPostContent html={safeContentHtml} />
         </div>
       )}
 

@@ -35,6 +35,22 @@ export default function Loading() {
           ))}
         </div>
       </div>
+
+      <div className="section-shell">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="space-y-3">
+            <div className="skeleton h-8 w-72 rounded-xl md:h-10 md:w-96" />
+            <div className="skeleton h-4 w-80 max-w-full rounded-xl" />
+            <div className="skeleton h-4 w-72 max-w-full rounded-xl" />
+            <div className="skeleton h-10 w-52 rounded-xl" />
+          </div>
+          <div className="hidden md:flex items-center gap-2">
+            <div className="skeleton h-20 w-20 rounded-2xl opacity-50" />
+            <div className="skeleton h-24 w-24 rounded-2xl opacity-50" />
+            <div className="skeleton h-20 w-20 rounded-2xl opacity-50" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

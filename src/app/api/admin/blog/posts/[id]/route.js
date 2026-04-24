@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { requireAdminRequest } from "@/lib/admin-request";
 import { generateUniqueSlug } from "@/lib/slug";
+import { sanitizeBlogHtml } from "@/lib/sanitize-blog-html";
 
 function parseId(id) {
   if (!ObjectId.isValid(id)) {
@@ -49,7 +50,7 @@ function normalizePostInput(body) {
     data: {
       title,
       excerpt,
-      contentHtml,
+      contentHtml: sanitizeBlogHtml(contentHtml),
       coverImageUrl,
       categoryId,
       status,

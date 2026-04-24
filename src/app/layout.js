@@ -1,5 +1,5 @@
 import Navbar from "@/components/shared/Navbar";
-import "../globals.css";
+import "./globals.css";
 import "highlight.js/styles/github-dark.css";
 import Footer from "@/components/shared/Footer";
 import Providers from "@/providers/Providers";
